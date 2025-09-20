@@ -1,6 +1,9 @@
-Welcome to your new TanStack app! 
+# Polyform IAC
 
-# Getting Started
+TerraCloud is a self-hosted, serverless-first control plane for managing Terraform workflows. It is designed for developers and teams who want a simple, secure, and cost-effective way to implement Infrastructure as Code (IaC) CI/CD.
+
+Users deploy TerraCloud directly into their own cloud account. From a centralized UI, they can connect their Git repositories, securely manage variables, and automate `terraform plan` and `apply` cycles. The vision is to provide a "single pane of glass" for infrastructure automation that is both powerful and entirely within the user's security and cost domain.
+
 
 To run this application:
 
@@ -9,7 +12,7 @@ pnpm install
 pnpm start
 ```
 
-# Building For Production
+## Building For Production
 
 To build this application for production:
 
