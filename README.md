@@ -1,8 +1,55 @@
-# Polyform IAC
+# PolyForm IAC
 
 TerraCloud is a self-hosted, serverless-first control plane for managing Terraform workflows. It is designed for developers and teams who want a simple, secure, and cost-effective way to implement Infrastructure as Code (IaC) CI/CD.
 
 Users deploy TerraCloud directly into their own cloud account. From a centralized UI, they can connect their Git repositories, securely manage variables, and automate `terraform plan` and `apply` cycles. The vision is to provide a "single pane of glass" for infrastructure automation that is both powerful and entirely within the user's security and cost domain.
+
+_PolyForm IAC architecture diagram_
+
+```mermaid
+graph TD
+    subgraph PolyForm IAC Application Control Plane
+        A[Web Frontend]
+        B[Backend API Service - Containerized]
+        C[Application Database - e.g. Firestore, DynamoDB]
+        D[Secret Store - e.g. Secret Manager, AWS Secrets Manager]
+
+        A -- 1. API Calls (HTTP/S) --> B
+        B -- 2. Stores State --> C
+        B -- 3. Manages Secrets --> D
+    end
+
+    subgraph CI/CD Workflow Engine Execution Plane
+        F[Host Cloud CI/CD Service - e.g. Cloud Build, AWS CodePipeline]
+        G[Ephemeral Compute Job - Container running Terraform]
+        H[Infrastructure Resources - What Terraform manages]
+        I[Secret Store]
+
+        F -- 6. Launches Job --> G
+        G -- 8. Fetches Secrets --> I
+        G -- 9. Manages Resources --> H
+    end
+
+    E[Version Control System - e.g. GitHub]
+
+    B -- 4. Creates Trigger --> F
+    E -- 5. Push Event --> F
+    G -- 7. Status Callbacks --> B
+
+    style A fill:#e3f2fd,stroke:#333
+    style B fill:#e3f2fd,stroke:#333
+    style C fill:#e3f2fd,stroke:#333
+    style D fill:#e3f2fd,stroke:#333
+
+    style F fill:#e8f5e9,stroke:#333
+    style G fill:#e8f5e9,stroke:#333
+    style H fill:#e8f5e9,stroke:#333
+    style I fill:#e8f5e9,stroke:#333
+
+    linkStyle 3 stroke-width:2px,fill:none,stroke:blue;
+    linkStyle 7 stroke-width:2px,fill:none,stroke:green;
+
+```
 
 
 To run this application:
