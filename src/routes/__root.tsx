@@ -12,13 +12,13 @@ import { GlobalSpinner } from '@/components/global-spinner'
 import { DefaultNotFound } from '@/components/not-found'
 import { siteSEO } from '@/lib/seo'
 import { ThemeProvider } from '@/providers/ThemeProvider'
-import Header from '../components/Header'
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
-import StoreDevtools from '../lib/demo-store-devtools'
+import StoreDevtools from '../lib/store-devtools'
 import appCss from '../styles.css?url'
 
 interface MyRouterContext {
 	queryClient: QueryClient
+	getTitle?: (title: string) => string
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
@@ -52,18 +52,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 		],
 	}),
 	errorComponent: (props) => {
-		return (
-			<HtmlWrapper>
-				<DefaultCatchBoundary {...props} />
-			</HtmlWrapper>
-		)
+		return <DefaultCatchBoundary {...props} />
 	},
 	notFoundComponent() {
-		return (
-			<DocumentWrapper>
-				<DefaultNotFound />
-			</DocumentWrapper>
-		)
+		return <DefaultNotFound />
 	},
 	shellComponent({ children }) {
 		return <DocumentWrapper>{children}</DocumentWrapper>
@@ -84,9 +76,8 @@ function HtmlWrapper({ children }: React.PropsWithChildren) {
 			<head>
 				<HeadContent />
 			</head>
-			<body>
+			<body className="font-sans antialiased">
 				<GlobalSpinner />
-				<Header />
 				{children}
 				<TanstackDevtools
 					config={{

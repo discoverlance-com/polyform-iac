@@ -9,18 +9,6 @@ export default function Header() {
 				</div>
 
 				<div className="px-2 font-bold">
-					<Link to="/demo/start/server-funcs">Start - Server Functions</Link>
-				</div>
-
-				<div className="px-2 font-bold">
-					<Link to="/demo/start/api-request">Start - API Request</Link>
-				</div>
-
-				<div className="px-2 font-bold">
-					<Link to="/demo/store">Store</Link>
-				</div>
-
-				<div className="px-2 font-bold">
 					<Link to="/demo/form/simple">Simple Form</Link>
 				</div>
 

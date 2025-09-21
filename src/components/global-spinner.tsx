@@ -36,7 +36,7 @@ export function GlobalSpinner() {
 			role="progressbar"
 			aria-hidden={delayedPending ? undefined : true}
 			aria-valuetext={delayedPending ? 'Loading' : undefined}
-			className="fixed inset-x-0 left-0 top-0 z-50 h-[0.20rem] animate-pulse [view-transition-name:global-spinner]"
+			className="fixed inset-x-0 left-0 top-0 z-50 h-[0.30rem] animate-pulse [view-transition-name:global-spinner]"
 		>
 			<div
 				ref={ref}

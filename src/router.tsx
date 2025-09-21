@@ -11,7 +11,8 @@ export const createRouter = () => {
 
 	const router = createTanstackRouter({
 		routeTree,
-		context: { ...rqContext },
+		//biome-ignore lint/style/noNonNullAssertion: tanstack requires it for initially undefined context values
+		context: { ...rqContext, getTitle: undefined! },
 		defaultPreload: 'intent',
 		defaultViewTransition: {
 			types: ({ fromLocation, toLocation }) => {
