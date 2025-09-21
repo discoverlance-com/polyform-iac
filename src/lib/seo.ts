@@ -5,6 +5,11 @@ type SeoOptions = {
 	keywords?: string
 }
 
+export const SiteInfo = {
+	title: 'PolyForm IAC',
+	description: 'Access your PolyForm IAC dashboard',
+}
+
 export const siteSEO = ({
 	title = 'Dashboard',
 	description = 'Access your PolyForm IAC dashboard',
