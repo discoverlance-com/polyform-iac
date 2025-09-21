@@ -9,7 +9,8 @@
 			"index.html",
 			"vite.config.ts",
 			"!src/routeTree.gen.ts",
-			"!src/components/ui"
+			"!src/components/ui",
+			"!src/styles.css"
 		]
 	},
 	"formatter": {
@@ -65,12 +66,6 @@
 		{
 			"includes": ["**/package.json"],
 			"formatter": { "indentStyle": "space" }
-		},
-		{
-			"includes": ["src/styles.css"],
-			"linter": {
-				"enabled": false
-			}
 		}
 	],
 	"assist": {
