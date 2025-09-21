@@ -7,7 +7,11 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
+import { DefaultCatchBoundary } from '@/components/catch-boundary'
+import { GlobalSpinner } from '@/components/global-spinner'
+import { DefaultNotFound } from '@/components/not-found'
 import { siteSEO } from '@/lib/seo'
+import { ThemeProvider } from '@/providers/ThemeProvider'
 import Header from '../components/Header'
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools'
 import StoreDevtools from '../lib/demo-store-devtools'
@@ -47,17 +51,41 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 			},
 		],
 	}),
-
-	shellComponent: RootDocument,
+	errorComponent: (props) => {
+		return (
+			<HtmlWrapper>
+				<DefaultCatchBoundary {...props} />
+			</HtmlWrapper>
+		)
+	},
+	notFoundComponent() {
+		return (
+			<DocumentWrapper>
+				<DefaultNotFound />
+			</DocumentWrapper>
+		)
+	},
+	shellComponent({ children }) {
+		return <DocumentWrapper>{children}</DocumentWrapper>
+	},
 })
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function DocumentWrapper({ children }: React.PropsWithChildren) {
 	return (
-		<html lang="en">
+		<ThemeProvider>
+			<HtmlWrapper>{children}</HtmlWrapper>
+		</ThemeProvider>
+	)
+}
+
+function HtmlWrapper({ children }: React.PropsWithChildren) {
+	return (
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<HeadContent />
 			</head>
 			<body>
+				<GlobalSpinner />
 				<Header />
 				{children}
 				<TanstackDevtools

@@ -13,6 +13,20 @@ export const createRouter = () => {
 		routeTree,
 		context: { ...rqContext },
 		defaultPreload: 'intent',
+		defaultViewTransition: {
+			types: ({ fromLocation, toLocation }) => {
+				let direction = 'none'
+
+				if (fromLocation) {
+					const fromIndex = fromLocation.state.__TSR_index
+					const toIndex = toLocation.state.__TSR_index
+
+					direction = fromIndex > toIndex ? 'right' : 'left'
+				}
+
+				return [`slide-${direction}`]
+			},
+		},
 		Wrap: (props: { children: React.ReactNode }) => {
 			return (
 				<TanstackQuery.Provider {...rqContext}>

@@ -29,6 +29,10 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"correctness": {
+				"noUnknownTypeSelector": "off",
+				"noUnknownPseudoClass": "warn"
+			},
 			"style": {
 				"noInferrableTypes": "error",
 				"noParameterAssign": "error",
@@ -62,7 +66,12 @@
 			"includes": ["**/package.json"],
 			"formatter": { "indentStyle": "space" }
 		},
-		{ "includes": ["**/*.mdx"] }
+		{
+			"includes": ["src/styles.css"],
+			"linter": {
+				"enabled": false
+			}
+		}
 	],
 	"assist": {
 		"enabled": true,
