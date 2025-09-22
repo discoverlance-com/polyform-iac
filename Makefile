@@ -1,4 +1,4 @@
-.PHONY: install-air dev build build-css run clean
+.PHONY: setup dev build build-css run clean
 
 # install air
 setup:
