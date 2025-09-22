@@ -15,7 +15,7 @@ body {
 	font-optical-sizing: auto;
 }
 
-code {
+pre, code, kbd, samp {
 	font-family:
 		"JetBrains Mono", source-code-pro, Menlo, Monaco, Consolas, "Courier New",
 		monospace;
