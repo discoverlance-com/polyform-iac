@@ -1,0 +1,25 @@
+# Config file for air (live reload for Go)
+
+# The root directory of your project
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# Command to build your app
+cmd = "go build -o ./bin/main.exe ."
+# Binary that air will run
+bin = "bin/main.exe"
+# Watch for these file extensions
+include_ext = ["go", "tpl", "tmpl", "html"]
+# Ignore these folders
+exclude_dir = ["assets", "bin", "node_modules", "tmp", ".git"]
+
+# Delay before rebuild (ms) — avoids too many rebuilds on fast saves
+delay = 1000
+
+# Show logs from the running app
+log = "air.log"
+
+[log]
+# Show timestamp in Air logs
+time = true

@@ -1,0 +1,27 @@
+{{ define "base" }}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ block "title" . }}{{ end }} - PolyForm IAC</title>
+
+    <link rel="stylesheet" href="/static/assets/css/normalize.css">
+
+    <link rel="stylesheet" href="/static/dist/app.css">
+    {{ block "head" . }}{{ end }}
+
+</head>
+<body>
+    {{ template "header" . }}
+
+    <main>
+        {{ block "content" . }}{{ end }}
+    </main>
+
+    {{ template "footer" . }}
+</body>
+</html>
+
+{{ end }}
