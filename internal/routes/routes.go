@@ -12,7 +12,7 @@ func SetupRouter(cfg *config.AppConfig) *gin.Engine {
 	router := gin.Default()
 
 	// load templates
-	router.LoadHTMLGlob(cfg.TemplatesGlob)
+	config.ConfigureTemplates(cfg, router)
 
 	// Serve static files at /static/*
 	router.Static("/static", cfg.StaticPath)
@@ -25,7 +25,7 @@ func SetupRouter(cfg *config.AppConfig) *gin.Engine {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
 
-	// add auth routes
+	// register routes
 	auth.RegisterRoutes(router)
 
 	return router

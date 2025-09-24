@@ -41,5 +41,7 @@ air.log
 
 node_modules/
 
-# Built CSS
+# Built CSS AND JS
 /static/css
+/static/js
+
