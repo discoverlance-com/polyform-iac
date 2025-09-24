@@ -1,34 +1,20 @@
 package main
 
 import (
-	"net/http"
+	"log"
 
-	"github.com/gin-gonic/gin"
+	"github.com/discoverlance-com/platform-iac/internal/config"
+	"github.com/discoverlance-com/platform-iac/internal/routes"
 )
 
 func main() {
-	router := gin.Default()
+	cfg := config.Load()
 
-	// load templates
-	router.LoadHTMLGlob("./templates/**/*")
+	router := routes.SetupRouter(cfg)
 
-	// Serve static files at /static/*
-	router.Static("/static", "./static")
+	log.Printf("Starting server on Default Port")
 
-	// trusted proxies
-	router.TrustedPlatform = gin.PlatformCloudflare
-	router.TrustedPlatform = gin.PlatformGoogleAppEngine
-	router.TrustedPlatform = gin.PlatformFlyIO
-
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "signin.tmpl", nil)
-	})
-
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
-	})
-
-	router.Run()
+	if err := router.Run(); err != nil {
+		log.Fatal(err)
+	}
 }
