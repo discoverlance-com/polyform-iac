@@ -6,13 +6,13 @@ tmp_dir = "tmp"
 
 [build]
 # Command to build your app
-cmd = "go build -o ./bin/main ."
+cmd = "go build -o ./bin/main.exe ."
 # Binary that air will run
-bin = "bin/main"
+bin = "bin/main.exe"
 # Watch for these file extensions
 include_ext = ["go", "tpl", "tmpl", "html"]
 # Ignore these folders
-exclude_dir = ["assets", "bin", "node_modules", "tmp", ".git"]
+exclude_dir = ["assets", "bin", "node_modules", "tmp", ".git", "static"]
 
 # Delay before rebuild (ms) — avoids too many rebuilds on fast saves
 delay = 1000

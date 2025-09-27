@@ -7,18 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ block "title" . }}{{ end }} - PolyForm IAC</title>
 
-    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+
+    <script src="/static/js/index.js" defer></script>
     {{ block "head" . }}{{ end }}
 
 </head>
-<body>
-    {{ template "header" . }}
+<body class="antialiased font-sans">
 
     <main>
         {{ block "content" . }}{{ end }}
     </main>
-
-    {{ template "footer" . }}
 </body>
 </html>
 
