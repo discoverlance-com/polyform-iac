@@ -1,20 +1,16 @@
 package main
 
 import (
-	"log"
+	"log/slog"
+	"os"
 
-	"github.com/discoverlance-com/platform-iac/internal/config"
-	"github.com/discoverlance-com/platform-iac/internal/routes"
+	"github.com/discoverlance-com/polyform-iac/internal/server"
 )
 
 func main() {
-	cfg := config.Load()
-
-	router := routes.SetupRouter(cfg)
-
-	log.Printf("Starting server on Default Port")
-
-	if err := router.Run(); err != nil {
-		log.Fatal(err)
+	// Run your server.
+	if err := server.RunServer(); err != nil {
+		slog.Error("Failed to start server!", "details", err.Error())
+		os.Exit(1)
 	}
 }

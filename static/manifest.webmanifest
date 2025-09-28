@@ -1,0 +1,10 @@
+{
+  "name": "PolyForm IAC",
+  "short_name": "PolyForm IAC",
+  "description": "PolyForm IAC is a self-hosted, serverless-first control plane for managing Terraform workflows.",
+  "background_color": "#fff",
+  "theme_color": "#ff6900",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "."
+}

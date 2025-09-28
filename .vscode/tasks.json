@@ -3,15 +3,15 @@
   "tasks": [
     {
      
-      "label": "Dev with Air and Esbuild Watch",
+      "label": "Dev with Air",
       "type": "shell",
-      "command": "make dev",
+      "command": "gowebly run",
       "group": {
         "kind": "build",
         "isDefault": true
       },
       "problemMatcher": [],
-      "isBackground": true,
+      "isBackground": false,
       "presentation": {
         "reveal": "always",
         "panel": "dedicated",

@@ -1,12 +1,8 @@
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
-#
-# Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+# Auto-generated .gitignore file.
+# See https://gowebly.org for more information.
+
+# macOS files.
+.DS_Store
 
 # Test binary, built with `go test -c`
 *.test
@@ -17,31 +13,60 @@ coverage.*
 *.coverprofile
 profile.cov
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# IDE files.
+.idea/
+#.vscode/
 
-# Go workspace file
+# Go workflow files.
 go.work
-go.work.sum
 
-# env file
+# Environment files.
 .env
 
-# Editor/IDE
-# .idea/
-# .vscode/
+# Generated folders.
+bin/
+dist-ssr/
+dist/
+pb_data/
 
+# Node modules.
+node_modules/
 
-# Go build output
-/bin/
-/tmp/
+# Vendor folders.
+vendor/
+
+# Temp folders.
+.parcel-cache/
+tmp/
+
+# Logs.
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Ignore by extensions.
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.local
+*.lockb
+*.test
+*.tmp
+*.out
 
 # Air log file if you’re using it
 air.log
 
-node_modules/
-
-# Built CSS AND JS
-/static/css
-/static/js
-
+# build css and js files
+static/dist/

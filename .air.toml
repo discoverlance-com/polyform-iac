@@ -1,25 +1,41 @@
-# Config file for air (live reload for Go)
+# Auto-generated config file for Air live-reloading tool.
+# See https://gowebly.org for more information.
 
-# The root directory of your project
 root = "."
 tmp_dir = "tmp"
 
 [build]
-# Command to build your app
-cmd = "go build -o ./bin/main.exe ."
-# Binary that air will run
-bin = "bin/main.exe"
-# Watch for these file extensions
-include_ext = ["go", "tpl", "tmpl", "html"]
-# Ignore these folders
-exclude_dir = ["assets", "bin", "node_modules", "tmp", ".git", "static"]
-
-# Delay before rebuild (ms) — avoids too many rebuilds on fast saves
+pre_cmd = ["npm run build"]
+cmd = "go run github.com/a-h/templ/cmd/templ@latest generate && go build -o ./tmp/gowebly_gin.exe ."
+bin = "tmp/gowebly_gin.exe"
+include_ext = ["go", "templ", "html", "json", "js", "ts", "css", "scss"]
+exclude_dir = [".parcel-cache", "bin", "dist", "node_modules", "static", "tmp", "tests", "vendor"]
+exclude_regex = ["_test\\.go", "_templ\\.go"]
+exclude_unchanged = false
+follow_symlink = false
+log = "build-errors-air.log"
+poll = false
+poll_interval = 500
 delay = 1000
-
-# Show logs from the running app
-log = "air.log"
+stop_on_error = true
+send_interrupt = false
+kill_delay = 500
+rerun = false
+rerun_delay = 500
 
 [log]
-# Show timestamp in Air logs
-time = true
+time = false
+main_only = false
+
+[color]
+main = "magenta"
+watcher = "cyan"
+build = "yellow"
+runner = "green"
+
+[misc]
+clean_on_exit = true
+
+[screen]
+clear_on_rebuild = true
+keep_scroll = true

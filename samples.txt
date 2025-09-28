@@ -1,0 +1,91 @@
+// showContentAPIHandler handles an API endpoint to show content.
+func showContentAPIHandler(c *gin.Context) {
+	// Check, if the current request has a 'HX-Request' header.
+	// For more information, see https://htmx.org/docs/#request-headers
+	if !htmx.IsHTMX(c.Request) {
+		// If not, return HTTP 400 error.
+		c.AbortWithError(http.StatusBadRequest, errors.New("non-htmx request"))
+		return
+	}
+
+	// Write HTML content.
+	c.Writer.Write([]byte("<p>🎉 Yes, <strong>htmx</strong> is ready to use! (<code>GET /api/hello-world</code>)</p>"))
+
+	// Send htmx response.
+	htmx.NewResponse().Write(c.Writer)
+}
+
+
+// forgotPasswordHandler serves the forgot-password page and handles form submissions.
+func forgotPasswordHandler(c *gin.Context) {
+	switch c.Request.Method {
+	case http.MethodGet:
+		// Define template meta tags.
+		metaTags := shared.MetaTags(
+			"forgot password, reset password, account recovery",   // define meta keywords
+			"Reset your password by entering your email address.", // define meta description
+		)
+
+		// Define template body content.
+		bodyContent := pages.ForgotPasswordBodyContent(
+			"Forgot Password",                          // define h1 text
+			"Enter your email to reset your password.", // define p text
+		)
+
+		// Define template layout for forgot-password page.
+		forgotPasswordTemplate := templates.Layout(
+			"Forgot Password", // define title text
+			metaTags,          // define meta tags
+			bodyContent,       // define body content
+		)
+
+		// Render forgot-password page template.
+		if err := htmx.NewResponse().RenderTempl(c.Request.Context(), c.Writer, forgotPasswordTemplate); err != nil {
+			c.AbortWithStatus(http.StatusInternalServerError)
+			return
+		}
+	}
+}
+
+
+
+package pages
+
+// ForgotPasswordBodyContent defines HTML content for the forgot-password page.
+templ ForgotPasswordBodyContent(h1, text string) {
+	<div id="forgot-password">
+		<h1>{ h1 }</h1>
+		<p>{ text }</p>
+		<form action="/forgot-password" method="POST">
+			<label for="email">Email Address:</label>
+			<input type="email" id="email" name="email" required>
+			<button type="submit">Submit</button>
+		</form>
+
+    <button type="button" class="hs-dark-mode hs-dark-mode-active:hidden flex items-center gap-x-2 py-2 px-3 bg-white/10 rounded-full text-sm text-white hover:bg-white/20 focus:outline-hidden focus:bg-white/20" data-hs-theme-click-value="dark">
+  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+  </svg>
+  Dark
+</button>
+<button type="button" class="hs-dark-mode hs-dark-mode-active:inline-flex hidden items-center gap-x-2 py-2 px-3 bg-white/10 rounded-full text-sm text-white hover:bg-white/20 focus:outline-hidden focus:bg-white/20" data-hs-theme-click-value="light">
+  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+  Light
+</button>
+	</div>
+}
+
+// ForgotPasswordBodyScripts defines JavaScript code for the forgot-password page.
+script ForgotPasswordBodyScripts() {
+	console.log("Forgot Password page loaded.");
+}

@@ -1,0 +1,47 @@
+package templates
+
+import "github.com/discoverlance-com/polyform-iac/templates/pages"
+
+templ Layout(title string, metaTags, bodyContent templ.Component) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+			<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' ws://localhost:*; img-src 'self' data:*;"/>
+			<meta name="theme-color" content="#ff6900"/>
+			<title>{ title }</title>
+			@metaTags
+			<link rel="dns-prefetch" href="//fonts.googleapis.com"/>
+			<link rel="dns-prefetch" href="//fonts.gstatic.com"/>
+			<link rel="preconnect" href="//fonts.googleapis.com" crossorigin/>
+			<link rel="preconnect" href="//fonts.gstatic.com" crossorigin/>
+			<link rel="manifest" href="/static/manifest.webmanifest"/>
+			 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+			<link href="/static/dist/styles.css" rel="stylesheet"/>
+
+			<script>
+				// This code should be added to <head>.
+				// It's used to prevent page load glitches.
+				const html = document.querySelector('html');
+				const isLightOrAuto = localStorage.getItem('hs_theme') === 'light' || 
+					(localStorage.getItem('hs_theme') === 'auto'  &&
+					!window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+				const isDarkOrAuto = localStorage.getItem('hs_theme') === 'dark' || 
+				(localStorage.getItem('hs_theme') === 'auto' && 
+				window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+				if (isLightOrAuto && html.classList.contains('dark')) html.classList.remove('dark');
+				else if (isDarkOrAuto && html.classList.contains('light')) html.classList.remove('light');
+				else if (isDarkOrAuto && !html.classList.contains('dark')) html.classList.add('dark');
+				else if (isLightOrAuto && !html.classList.contains('light')) html.classList.add('light');
+			</script>
+		</head>
+		<body onload={ pages.BodyScripts() }>
+			@bodyContent
+			<script src="/static/dist/scripts.js"></script>
+		</body>
+	</html>
+}

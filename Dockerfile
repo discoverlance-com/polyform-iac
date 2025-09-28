@@ -1,47 +1,35 @@
-# Use Node just to build CSS
-FROM node:24-alpine AS css-builder
+# Use Node just to build CSS and JS
+FROM node:24-alpine AS assets-builder
 WORKDIR /app
 COPY assets/ ./assets/
+COPY package.json package-lock.json ./
+COPY .postcssrc.js ./
 RUN npm install
-RUN npm run build:css
+RUN npm run build
 
-# Use the official Golang image as a base image
 FROM golang:1.24-alpine AS builder
 
-# Set the working directory inside the container
-WORKDIR /app
+# Move to working directory (/build).
+WORKDIR /build
 
-# Copy go.mod and go.sum files
+# Copy and download dependency using go mod.
 COPY go.mod go.sum ./
-
-# Download all dependencies
 RUN go mod download
 
-# Copy the source code
+# Copy your code into the container.
 COPY . .
 
-COPY --from=css-builder /app/static/dist ./static/dist
+# Set necessary environment variables and build your project.
+ENV CGO_ENABLED=0 GIN_MODE=release
+RUN go build -ldflags="-s -w" -o gowebly_gin
 
-# Build the Go app
-RUN go build -o main .
+FROM scratch
 
-# Use a minimal base image for the final container
-FROM gcr.io/distroless/base-debian12
+# Copy project's binary and templates from /build to the scratch container.
+COPY --from=builder /build/gowebly_gin /
+COPY --from=builder /build/static /static
+COPY --from=assets-builder /build/static/dist ./static/dist
 
-# Set the working directory inside the container
-WORKDIR /root/
 
-# Copy the binary from the builder stage
-COPY --from=builder /app/main .
-
-# Copy static files
-COPY --from=builder /app/static ./static
-
-# Expose the port the app runs on
-EXPOSE 8080
-
-# Set the Gin mode to release
-ENV GIN_MODE=release
-
-# Command to run the executable
-CMD ["./main"]
+# Set entry point.
+ENTRYPOINT ["/gowebly_gin"]
